@@ -9,6 +9,7 @@ public class ProfileViewModel extends ViewModel {
 
     // bruh what do i even do here
     ProfileViewModel() {
+        // pretty sure this is wrong shrug
         userProfile = new UserProfile("prof bell");
     }
 
