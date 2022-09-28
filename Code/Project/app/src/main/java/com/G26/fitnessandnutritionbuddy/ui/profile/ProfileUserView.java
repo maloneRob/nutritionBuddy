@@ -1,32 +1,28 @@
 package com.G26.fitnessandnutritionbuddy.ui.profile;
 
-import com.G26.fitnessandnutritionbuddy.data.model.UserNutrition;
+import com.G26.fitnessandnutritionbuddy.data.model.UserProfile;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileUserView {
-    private String displayName;
-    private UserNutrition nutritionGoal;
-    private UserNutrition nutritionCount;
+    private UserProfile profile;
 
     //... other data fields that may be accessible to the UI
 
     ProfileUserView(String displayName) {
-        this.displayName = displayName;
-        this.nutritionCount = new UserNutrition();
-        this.nutritionGoal = new UserNutrition();
+        this.profile = new UserProfile(displayName);
     }
 
-    String getDisplayName() {
-        return displayName;
+    public String getDisplayName() {
+        return profile.getDisplayName();
     }
 
-    Integer getNutrientGoal(String nutrient) {
-        return nutritionGoal.getNutrientCountByName(nutrient);
+    public Integer getNutrientGoal(String nutrient) {
+        return profile.getNutrientGoal(nutrient);
     }
 
-    Integer getNutritionCount(String nutrient) {
-        return nutritionCount.getNutrientCountByName(nutrient);
+    public Integer getNutrientCount(String nutrient) {
+        return profile.getNutrientCount(nutrient);
     }
 }
