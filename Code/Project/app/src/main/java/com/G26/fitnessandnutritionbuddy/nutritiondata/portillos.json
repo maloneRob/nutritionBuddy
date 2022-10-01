@@ -1,0 +1,25 @@
+{
+  "Foods":[
+    {
+      "name": "Regular Hot Dog",
+      "calories": "340",
+      "fats": "15",
+      "carbohydrates": "39",
+      "protein": "25"
+    },
+    {
+      "name": "Italian Beef Sandwich",
+      "calories": "690",
+      "fats": "34",
+      "carbohydrates": "59",
+      "protein": "33"
+    },
+    {
+      "name": "Hamburger",
+      "calories": "570",
+      "fats": "26",
+      "carbohydrates": "47",
+      "protein": "34"
+    }
+  ]
+}

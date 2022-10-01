@@ -1,0 +1,25 @@
+{
+  "Foods":[
+    {
+      "name": "12 Count Chicken Nuggets",
+      "calories": "380",
+      "fats": "17",
+      "carbohydrates": "16",
+      "protein": "40"
+    },
+    {
+      "name": "Spicy Deluxe Sandwich",
+      "calories": "550",
+      "fats": "25",
+      "carbohydrates": "47",
+      "protein": "33"
+    },
+    {
+      "name": "Chicken Sandwich",
+      "calories": "440",
+      "fats": "17",
+      "carbohydrates": "41",
+      "protein": "29"
+    }
+  ]
+}

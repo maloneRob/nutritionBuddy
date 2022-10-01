@@ -1,0 +1,25 @@
+{
+  "Foods":[
+    {
+      "name": "Big Mac",
+      "calories": "550",
+      "fats": "30",
+      "carbohydrates": "45",
+      "protein": "25"
+    },
+    {
+      "name": "Quarter Pounder with Cheese",
+      "calories": "520",
+      "fats": "26",
+      "carbohydrates": "42",
+      "protein": "30"
+    },
+    {
+      "name": "Spicy Deluxe Crispy Chicken Sandwich",
+      "calories": "530",
+      "fats": "26",
+      "carbohydrates": "49",
+      "protein": "27"
+    }
+  ]
+}
