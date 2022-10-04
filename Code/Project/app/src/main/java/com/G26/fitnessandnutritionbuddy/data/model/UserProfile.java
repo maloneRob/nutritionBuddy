@@ -1,6 +1,9 @@
 package com.G26.fitnessandnutritionbuddy.data.model;
 
-public class UserProfile {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class UserProfile implements Parcelable {
     private String displayName;
     private UserNutrition nutritionGoal;
     private UserNutrition nutritionCount;
@@ -12,6 +15,22 @@ public class UserProfile {
         this.nutritionCount = new UserNutrition();
         this.nutritionGoal = new UserNutrition();
     }
+
+    protected UserProfile(Parcel in) {
+        displayName = in.readString();
+    }
+
+    public static final Creator<UserProfile> CREATOR = new Creator<UserProfile>() {
+        @Override
+        public UserProfile createFromParcel(Parcel in) {
+            return new UserProfile(in);
+        }
+
+        @Override
+        public UserProfile[] newArray(int size) {
+            return new UserProfile[size];
+        }
+    };
 
     public String getDisplayName() {
         return displayName;
@@ -38,5 +57,15 @@ public class UserProfile {
 
     public Integer getNutrientCount(String nutrient) {
         return nutritionCount.getNutrientCountByName(nutrient);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(displayName);
     }
 }

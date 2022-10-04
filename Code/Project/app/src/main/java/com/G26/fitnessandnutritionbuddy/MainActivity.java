@@ -2,10 +2,12 @@ package com.G26.fitnessandnutritionbuddy;
 
 import android.os.Bundle;
 
+import com.G26.fitnessandnutritionbuddy.data.model.UserProfile;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -17,12 +19,14 @@ import com.G26.fitnessandnutritionbuddy.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-
+    EditText userNameText;
+    Bundle saveData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+//        //get username from textview at login screen
+//        userNameText = (EditText) findViewById(R.id.editTextTextPersonName);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,5 +79,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    //these classes save the object between fragments
+    public void saveData(Bundle data){
+        saveData = data;
+        UserProfile temp = data.getParcelable("profile");
+//        Log.d("print save", temp.getDisplayName());
+//        Log.d("print save", temp.getNutrientGoal("calories").toString());
+//        Log.d("print save", temp.getNutrientGoal("carbohydrates").toString());
+//        Log.d("print save",temp.getNutrientGoal("fats").toString());
+//        Log.d("print save",temp.getNutrientGoal("proteins").toString());
+    }
+    public Bundle getSaveData(){
+        return saveData;
     }
 }
