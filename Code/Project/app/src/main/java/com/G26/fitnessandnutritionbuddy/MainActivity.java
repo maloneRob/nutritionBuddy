@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle saveData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("[MethodCheck] MainActivity onCreate");
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

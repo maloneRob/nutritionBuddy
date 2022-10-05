@@ -1,5 +1,6 @@
 package com.G26.fitnessandnutritionbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +21,18 @@ public class SecondFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-
+        System.out.println("[MethodCheck] SecondFragment onCreateView");
         binding = FragmentSecondBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        View view = binding.getRoot();
+
+        return view;
 
     }
 
+    @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        System.out.println("[MethodCheck] SecondFragment onViewCreated");
+
         super.onViewCreated(view, savedInstanceState);
 
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {

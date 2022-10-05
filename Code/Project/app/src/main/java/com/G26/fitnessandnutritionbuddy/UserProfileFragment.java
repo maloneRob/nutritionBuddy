@@ -1,5 +1,6 @@
 package com.G26.fitnessandnutritionbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,7 @@ public class UserProfileFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        System.out.println("[MethodCheck] UserProfileFragment onCreate");
         super.onCreate(savedInstanceState);
         // gets the saved bundle from the main activity
         MainActivity activity = (MainActivity) getActivity();
@@ -73,6 +75,7 @@ public class UserProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("[MethodCheck] UserProfileFragment onCreateView");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile, container, false);
     }
@@ -80,6 +83,7 @@ public class UserProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        System.out.println("[MethodCheck] UserProfileFragment onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
         NavController navController = Navigation.findNavController(view);
@@ -112,6 +116,11 @@ public class UserProfileFragment extends Fragment {
                 //call .saveData to store info from class in activity
                 MainActivity activity = (MainActivity) getActivity();
                 activity.saveData(newGoals);
+
+                // start maps activity okayge
+                Intent intent = new Intent(view.getContext(), MapsActivity.class);
+                view.getContext().startActivity(intent);
+
                 navController.navigate(R.id.action_userProfileFragment_to_SecondFragment);
             }
         });

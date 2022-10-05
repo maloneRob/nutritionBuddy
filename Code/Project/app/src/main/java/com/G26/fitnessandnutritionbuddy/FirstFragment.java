@@ -1,5 +1,6 @@
 package com.G26.fitnessandnutritionbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class FirstFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        System.out.println("[MethodCheck] FirstFragment onCreateView");
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -32,6 +34,7 @@ public class FirstFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        System.out.println("[MethodCheck] FirstFragment onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
         //get username edit text id
