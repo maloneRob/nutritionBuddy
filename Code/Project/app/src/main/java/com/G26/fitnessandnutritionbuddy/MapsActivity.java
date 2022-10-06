@@ -26,11 +26,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3);
-//        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map3);
-        mapFragment.getMapAsync(this);
     }
 
     /**

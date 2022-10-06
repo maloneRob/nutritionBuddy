@@ -117,10 +117,6 @@ public class UserProfileFragment extends Fragment {
                 MainActivity activity = (MainActivity) getActivity();
                 activity.saveData(newGoals);
 
-                // start maps activity okayge
-                Intent intent = new Intent(view.getContext(), MapsActivity.class);
-                view.getContext().startActivity(intent);
-
                 navController.navigate(R.id.action_userProfileFragment_to_SecondFragment);
             }
         });
