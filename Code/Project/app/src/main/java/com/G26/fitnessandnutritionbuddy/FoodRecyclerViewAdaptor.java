@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FoodRecyclerViewAdaptor extends RecyclerView.Adapter<FoodRecyclerViewAdaptor.MyViewHolder> {
+public class    FoodRecyclerViewAdaptor extends RecyclerView.Adapter<FoodRecyclerViewAdaptor.MyViewHolder> {
 
     private ArrayList<Food> foodList = new ArrayList<>();
 
