@@ -1,5 +1,6 @@
 package com.G26.fitnessandnutritionbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -48,8 +49,13 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
+
+                 */
+                Intent intent = new Intent(getContext(), JSONActivity.class);
+                startActivity(intent);
             }
         });
 
