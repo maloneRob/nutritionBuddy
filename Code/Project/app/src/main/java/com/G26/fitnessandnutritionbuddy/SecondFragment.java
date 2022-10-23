@@ -46,16 +46,24 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
         super.onViewCreated(view, savedInstanceState);
 
+        // to home screen
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
 
-                 */
                 Intent intent = new Intent(getContext(), JSONActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // to map
+        binding.buttonThird.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(SecondFragment.this)
+                        .navigate(R.id.action_SecondFragment_to_JsonListFragment);
             }
         });
 

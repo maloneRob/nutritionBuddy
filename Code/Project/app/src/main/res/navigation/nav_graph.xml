@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_JsonListFragment"
+            app:destination="@id/JSONListFragment" />
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
@@ -54,5 +57,15 @@
         <action
             android:id="@+id/action_registrationFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/JSONListFragment"
+        android:name="com.G26.fitnessandnutritionbuddy.JSONListFragment"
+        android:label="fragment_json_list"
+        tools:layout="@layout/fragment_json_list" >
+        <action
+            android:id="@+id/action_fragmentJsonList_to_second_fragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

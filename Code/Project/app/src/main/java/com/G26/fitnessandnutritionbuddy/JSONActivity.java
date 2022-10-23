@@ -23,9 +23,9 @@ public class JSONActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json);
 
-        getFoodList();
+        collectFoodList();
 
-        setUIRef();
+//        setUIRef();
     }
 
     private void setUIRef() {
@@ -37,7 +37,7 @@ public class JSONActivity extends AppCompatActivity {
     }
 
     // parses JSON for information
-    private void getFoodList() {
+    private void collectFoodList() {
 
         String jsonString1 = loadJSON1();
         String jsonString2 = loadJSON2();
