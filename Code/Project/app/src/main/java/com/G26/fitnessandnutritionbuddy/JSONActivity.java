@@ -57,7 +57,7 @@ public class JSONActivity extends AppCompatActivity {
 
                 JSONObject jsonObj = foodArray1.getJSONObject(x);
 
-                temp.setName(jsonObj.getString("name"));
+                temp.setFoodName(jsonObj.getString("name"));
                 temp.setCalories(jsonObj.getInt("calories"));
                 temp.setFats(jsonObj.getInt("fats"));
                 temp.setCarbohydrates(jsonObj.getInt("carbohydrates"));
@@ -71,7 +71,7 @@ public class JSONActivity extends AppCompatActivity {
 
                 JSONObject jsonObj = foodArray2.getJSONObject(y);
 
-                temp.setName(jsonObj.getString("name"));
+                temp.setFoodName(jsonObj.getString("name"));
                 temp.setCalories(jsonObj.getInt("calories"));
                 temp.setFats(jsonObj.getInt("fats"));
                 temp.setCarbohydrates(jsonObj.getInt("carbohydrates"));
@@ -85,7 +85,7 @@ public class JSONActivity extends AppCompatActivity {
 
                 JSONObject jsonObj = foodArray3.getJSONObject(z);
 
-                temp.setName(jsonObj.getString("name"));
+                temp.setFoodName(jsonObj.getString("name"));
                 temp.setCalories(jsonObj.getInt("calories"));
                 temp.setFats(jsonObj.getInt("fats"));
                 temp.setCarbohydrates(jsonObj.getInt("carbohydrates"));

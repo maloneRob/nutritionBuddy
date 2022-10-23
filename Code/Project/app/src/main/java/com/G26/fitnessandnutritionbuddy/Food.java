@@ -2,18 +2,34 @@ package com.G26.fitnessandnutritionbuddy;
 
 public class Food {
 
-    private String name;
+    private String foodName;
+    private String brandName;
     private int calories;
     private int fats;
     private int carbohydrates;
     private int protein;
 
-    public String getName() {
-        return name;
+    Food() {}
+
+    Food(String foodName, String brandName, int calories, int fats, int carbohydrates, int protein) {
+        this.foodName = foodName;
+        this.brandName = brandName;
+        this.calories = calories;
+        this.fats = fats;
+        this.carbohydrates = carbohydrates;
+        this.protein = protein;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return foodName;
+    }
+
+    public void setFoodName(String name) {
+        this.foodName = name;
+    }
+
+    public void setBrandName(String name) {
+        this.brandName = name;
     }
 
     public int getCalories() {

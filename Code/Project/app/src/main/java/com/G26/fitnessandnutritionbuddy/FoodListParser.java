@@ -71,7 +71,7 @@ public class FoodListParser {
 
                     JSONObject jsonObj = foodArray.getJSONObject(j);
 
-                    food.setName(jsonObj.getString("name"));
+                    food.setFoodName(jsonObj.getString("name"));
                     food.setCalories(jsonObj.getInt("calories"));
                     food.setFats(jsonObj.getInt("fats"));
                     food.setCarbohydrates(jsonObj.getInt("carbohydrates"));
