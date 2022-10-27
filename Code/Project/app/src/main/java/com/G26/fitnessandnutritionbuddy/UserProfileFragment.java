@@ -170,16 +170,48 @@ public class UserProfileFragment extends Fragment {
 
                             // get the list of RestaurantObjects
                             // ArrayList<Restaurant> restaurantsList = rp.getRestaurants();
+                            //dummy restaurants to test
+                            Restaurant r1 = new Restaurant("Wendy's","123fakestreet",420,69,42069,"google.com");
+                            Restaurant r2 = new Restaurant("Burger King","123fakestreet",420,69,42069,"google.com");
+                            Restaurant r3 = new Restaurant("McDonald's","123fakestreet",420,69,42069,"google.com");
+                            ArrayList<Restaurant> restaurantsList = new ArrayList<>();
+                            restaurantsList.add(r1);
+                            restaurantsList.add(r2);
+                            restaurantsList.add(r3);
 
-                            //todo
-                            // implement new class QueryMenu.java
-                            //will fix syntax
-                            /*for (Restaurant restaurants : restuarantsList){
-                                make seperate query for each restaurant
-                                parse the JSON returned
-                                get food objects and insert them into restuarant's menu
+                            QueryMenu menuQuery = new QueryMenu(getActivity());
+                            for (Restaurant restaurant : restaurantsList){
+                                Log.i("[Response]","making query for " + restaurant.getRestaurantName() + " menu items");
+                                menuQuery.queryMenuItems(restaurant.getRestaurantName(), new QueryRestaurants.VolleyResponseListener() {
+                                    @Override
+                                    public void onError(String message) {
+                                        Log.i("[RESPONSE]", "ERROR, EITHER NO MENU ITEMS FOR "+ restaurant.getRestaurantName() + " OR ERROR IN METHOD");
+                                    }
 
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        Log.i("[RESPONSE MENU " + restaurant.getRestaurantName()+ "]", response.toString());
+                                        // assigning the json to the address member of the restaurant
+                                        // this is a test to see if the correct menu is getting updated from the asynchronous callbacks
+                                        // leaving in for testing purposes and will change once parser class gets added
+                                        restaurant.setAddress(response.toString());
+                                        Log.i("[PRINTING MENU FOR " + restaurant.getRestaurantName() + " ]", restaurant.getAddress());
+
+                                        //todo
+                                        //pass response to JSON Menu parser class
+                                        //MenuParser mp = new MenuParser(response);
+                                        //add menu to restaurant
+                                        /*for(Food food : mp.getFoods()){
+                                             restaurant.addFood(food);
+                                         }*/
+
+                                    }
+                                });
                             }
+                            /*
+                            may run into issues with transitions, since the api calls are asynchronous
+                            when we arrive at the next fragment the restaurants/menus may not be ready/filled so when called they may be null
+
                             pass back arraylist of restaurant objects to the main activity to save to fragment
                             put the restaurants on the gmap
                             parse the menus to the listview
