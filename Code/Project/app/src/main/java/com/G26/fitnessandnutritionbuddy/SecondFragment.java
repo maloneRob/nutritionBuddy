@@ -111,6 +111,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 //        for(int i = 0; i < restaurantList.size(); i++) {
 //            Pair<String, LatLng> r = restaurantList.get(i);
             Log.i("[method check]", "adding restaurant marker");
+            Log.i("[restName]", restaurant.first);
+            Log.i("[latlng]", restaurant.second.toString());
             mMap.addMarker(new MarkerOptions().position(restaurant.second).icon(BitmapDescriptorFactory.defaultMarker(276)).title(restaurant.first));
 //        }
         Log.i("[method check]", "ALRIGHT I restaurant marker");
@@ -125,13 +127,19 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         String locationName = "UIC";
 
 //        addRestaurants(mMap);
-        queryRestaurants();
+        queryRestaurants(mMap);
+//        NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getContext());
+//        ArrayList<Restaurant> restList = list.getRestaurantList();
+//        for (Restaurant rest : restList) {
+//            LatLng posit = new LatLng(rest.getLat(), rest.getLng());
+//            addRestaurants(mMap, Pair.create(rest.getRestaurantName(), posit));
+//        }
 
         mMap.addMarker(new MarkerOptions().position(location).title(locationName));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
 
     }
-    private void queryRestaurants() {
+    private void queryRestaurants(GoogleMap mMap) {
         new Thread(new Runnable() {
             @Override
             public void run() {

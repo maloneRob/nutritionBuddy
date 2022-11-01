@@ -53,7 +53,7 @@ public class NutritionXRestaurantListParsing {
     }
 
     private void parseList() {
-        String filename = "examples/RestaurantsList.json";
+        String filename = "RestaurantsList.json";
         String jsonString = getJsonString(filename);
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -66,8 +66,8 @@ public class NutritionXRestaurantListParsing {
                 restaurant.setRestaurantName(restObject.getString("name"));
                 restaurant.setAddress(restObject.getString("address"));
                 restaurant.setWebsite(restObject.getString("website"));
-                restaurant.setLat(restObject.getLong("lat"));
-                restaurant.setLng(restObject.getLong("lng"));
+                restaurant.setLat(restObject.getDouble("lat"));
+                restaurant.setLng(restObject.getDouble("lng"));
                 restaurant.setDistance(restObject.getLong("distance_km"));
 
                 // add to restaurant list

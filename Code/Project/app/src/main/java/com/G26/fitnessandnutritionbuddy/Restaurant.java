@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class Restaurant implements Parcelable {
     private String restaurantName;
     private String address;
-    private long lat;
-    private long lng;
+    private double lat;
+    private double lng;
     private long distance;
     private String website;
 
@@ -18,7 +18,7 @@ public class Restaurant implements Parcelable {
 
     public Restaurant() {}
 
-    public Restaurant(String restaurantName, String address, long lat, long lng, long distance, String website) {
+    public Restaurant(String restaurantName, String address, double lat, double lng, long distance, String website) {
         this.restaurantName = restaurantName;
         this.address = address;
         this.lat = lat;
@@ -40,11 +40,11 @@ public class Restaurant implements Parcelable {
         this.address = address;
     }
 
-    public void setLat(long lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public void setLng(long lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
@@ -68,11 +68,11 @@ public class Restaurant implements Parcelable {
         return address;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public long getLng() {
+    public double getLng() {
         return lng;
     }
 
@@ -94,8 +94,8 @@ public class Restaurant implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.restaurantName);
         dest.writeString(this.address);
-        dest.writeLong(this.lat);
-        dest.writeLong(this.lng);
+        dest.writeDouble(this.lat);
+        dest.writeDouble(this.lng);
         dest.writeFloat(this.distance);
         dest.writeString(this.website);
         dest.writeList(this.menu);
