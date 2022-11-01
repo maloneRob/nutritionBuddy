@@ -1,6 +1,7 @@
 package com.G26.fitnessandnutritionbuddy.parsing;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.G26.fitnessandnutritionbuddy.Food;
 
@@ -25,7 +26,7 @@ public class NutritionXFoodListParsing {
         parseList();
     }
 
-    ArrayList<Food> getFoodList() {
+    public ArrayList<Food> getFoodList() {
         return foodList;
     }
 
@@ -52,7 +53,9 @@ public class NutritionXFoodListParsing {
     }
 
     private void getNutrients(Food food, JSONArray nutrientArray) throws JSONException {
+        Log.i("[parse check]", "getNutrients0");
         for (int nutrientIndex = 0; nutrientIndex < nutrientArray.length(); nutrientIndex++) {
+            Log.i("[parse check]", "getNutrients1");
             JSONObject nutrient = nutrientArray.getJSONObject(nutrientIndex);
             int attr_id = nutrient.getInt("attr_id");
             int value = (int)nutrient.getLong("value");
@@ -70,27 +73,38 @@ public class NutritionXFoodListParsing {
             else if (attr_id == 208)
                 food.setCalories(value);
         }
+        Log.i("[parse check]", "getNutrients2");
     }
 
     private void parseList() {
-        String filename = "examples/WendysFoodList.json";
+        Log.i("[parse check]", "parsing list");
+        String filename = "WendysFoodList.json";
         String jsonString = getJsonString(filename);
         try {
+            Log.i("[parse check]", "in try0");
             JSONObject jsonObject = new JSONObject(jsonString);
 
             JSONArray foodArray = jsonObject.getJSONArray("common");
+            Log.i("[parse check]", "in try1");
             for (int foodIndex = 0; foodIndex < 5; foodIndex++) { // limit to first 5 foods for now
+                Log.i("[parse check]", "in try2");
                 JSONObject foodObject = foodArray.getJSONObject(foodIndex);
 
                 Food food = new Food();
 
                 food.setFoodName(foodObject.getString("food_name"));
-                food.setBrandName(foodObject.getString("brand_name"));
+//                food.setBrandName(foodObject.getString("brand_name"));
+                Log.i("[foodcheck]", food.getName());
                 getNutrients(food, foodObject.getJSONArray("full_nutrients"));
+
+                String item = food.getName()+" Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
+                        + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
+                Log.i("[adding item]", item);
 
                 // add to food list
                 foodList.add(food);
             }
+            Log.i("[parse check]", "in try3");
         } catch (JSONException e) {
             e.printStackTrace();
         }

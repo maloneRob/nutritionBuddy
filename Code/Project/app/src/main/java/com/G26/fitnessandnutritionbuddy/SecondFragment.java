@@ -44,6 +44,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
 
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
+    private Handler lUiHandler = new Handler(Looper.getMainLooper());
 
     @Override
     public View onCreateView(
@@ -69,7 +70,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
         foodsNearby.setAdapter(arrayAdapter);
 
-
+        queryMenu();
         // to home screen
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,11 +124,12 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker at UIC, move & zoom the camera
-        LatLng location = new LatLng(41.8686, -87.6484);
-        String locationName = "UIC";
+        LatLng location = new LatLng(41.8725, -87.6493);
+        String locationName = "Your Location";
 
 //        addRestaurants(mMap);
         queryRestaurants(mMap);
+
 //        NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getContext());
 //        ArrayList<Restaurant> restList = list.getRestaurantList();
 //        for (Restaurant rest : restList) {
@@ -160,6 +162,30 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
             }
         }).start();
 
+    }
+    private void queryMenu() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("[thread check]", "about to parse");
+                NutritionXFoodListParsing list = new NutritionXFoodListParsing(getContext());
+                Log.i("[thread check]", "got done parsing to parse");
+                ArrayList<Food> foodlist = list.getFoodList();
+                lUiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("[thread check]", "about to loop through foods foodlen="+foodlist.size());
+                        for (Food food: foodlist){
+                            String item = food.getName()+" Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
+                                    + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
+                            Log.i("[adding item]", item);
+                            arrayAdapter.add(item);
+                        }
+                        Log.i("[thread check]", "done looping through foods");
+                    }
+                });
+            }
+        }).start();
     }
 //        new Thread(new Runnable() {
 //            @Override

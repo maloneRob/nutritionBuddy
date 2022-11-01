@@ -30,8 +30,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map3"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="282dp"
-        android:layout_height="395dp"
+        android:layout_width="280dp"
+        android:layout_height="365dp"
         app:layout_constraintBottom_toTopOf="@+id/button_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +41,12 @@
     <ListView
         android:id="@+id/ListViewFoodsNearby"
         android:layout_width="412dp"
-        android:layout_height="188dp"
+        android:layout_height="167dp"
         app:layout_constraintBottom_toTopOf="@+id/button_third"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map3" />
+        app:layout_constraintTop_toBottomOf="@+id/map3"
+        app:layout_constraintVertical_bias="0.69" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
