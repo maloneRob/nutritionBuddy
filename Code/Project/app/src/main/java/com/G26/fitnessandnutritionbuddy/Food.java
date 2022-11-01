@@ -9,9 +9,9 @@ public class Food {
     private int carbohydrates;
     private int protein;
 
-    Food() {}
+    public Food() {}
 
-    Food(String foodName, String brandName, int calories, int fats, int carbohydrates, int protein) {
+    public Food(String foodName, String brandName, int calories, int fats, int carbohydrates, int protein) {
         this.foodName = foodName;
         this.brandName = brandName;
         this.calories = calories;

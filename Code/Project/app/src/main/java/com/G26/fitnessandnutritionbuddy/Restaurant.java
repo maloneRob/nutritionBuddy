@@ -8,14 +8,14 @@ public class Restaurant {
     private String address;
     private long lat;
     private long lng;
-    private float distance;
+    private long distance;
     private String website;
 
     ArrayList<Food> menu;
 
-    Restaurant() {}
+    public Restaurant() {}
 
-    Restaurant(String restaurantName, String address, long lat, long lng, float distance, String website) {
+    public Restaurant(String restaurantName, String address, long lat, long lng, long distance, String website) {
         this.restaurantName = restaurantName;
         this.address = address;
         this.lat = lat;
@@ -24,59 +24,59 @@ public class Restaurant {
         this.website = website;
     }
 
-    void addMenuItem(Food foodItem) {
+    public void addMenuItem(Food foodItem) {
         menu.add(foodItem);
     }
 
-    void setRestaurantName(String restaurantName) {
+    public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }
 
-    void setAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    void setLat(long lat) {
+    public void setLat(long lat) {
         this.lat = lat;
     }
 
-    void setLng(long lng) {
+    public void setLng(long lng) {
         this.lng = lng;
     }
 
-    void setDistance(float distance) {
+    public void setDistance(long distance) {
         this.distance = distance;
     }
 
-    void setWebsite(String website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
 
-    ArrayList<Food> getMenu() {
+    public ArrayList<Food> getMenu() {
         return menu;
     }
 
-    String getRestaurantName() {
+    public String getRestaurantName() {
         return restaurantName;
     }
 
-    String getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    long getLat() {
+    public long getLat() {
         return lat;
     }
 
-    long getLng() {
+    public long getLng() {
         return lng;
     }
 
-    float getDistance() {
+    public long getDistance() {
         return distance;
     }
 
-    String getWebsite() {
+    public String getWebsite() {
         return website;
     }
 
