@@ -1,9 +1,12 @@
 package com.G26.fitnessandnutritionbuddy;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Restaurant {
+public class Restaurant implements Parcelable {
     private String restaurantName;
     private String address;
     private long lat;
@@ -22,6 +25,7 @@ public class Restaurant {
         this.lng = lng;
         this.distance = distance;
         this.website = website;
+        this.menu = new ArrayList<Food>();
     }
 
     public void addMenuItem(Food foodItem) {
@@ -80,4 +84,54 @@ public class Restaurant {
         return website;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.restaurantName);
+        dest.writeString(this.address);
+        dest.writeLong(this.lat);
+        dest.writeLong(this.lng);
+        dest.writeFloat(this.distance);
+        dest.writeString(this.website);
+        dest.writeList(this.menu);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.restaurantName = source.readString();
+        this.address = source.readString();
+        this.lat = source.readLong();
+        this.lng = source.readLong();
+        this.distance = source.readLong();
+        this.website = source.readString();
+        this.menu = new ArrayList<Food>();
+        source.readList(this.menu, Food.class.getClassLoader());
+    }
+
+    protected Restaurant(Parcel in) {
+        this.restaurantName = in.readString();
+        this.address = in.readString();
+        this.lat = in.readLong();
+        this.lng = in.readLong();
+        this.distance = in.readLong();
+        this.website = in.readString();
+        this.menu = new ArrayList<Food>();
+        in.readList(this.menu, Food.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Restaurant> CREATOR = new Parcelable.Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel source) {
+            return new Restaurant(source);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
 }

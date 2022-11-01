@@ -19,7 +19,7 @@ public class NutritionXFoodListParsing {
     private ArrayList<Food> foodList;
     private Context context;
 
-    NutritionXFoodListParsing(Context c) {
+    public NutritionXFoodListParsing(Context c) {
         foodList = new ArrayList<>();
         context = c;
         parseList();

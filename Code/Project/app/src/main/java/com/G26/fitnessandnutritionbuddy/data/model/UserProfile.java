@@ -16,21 +16,7 @@ public class UserProfile implements Parcelable {
         this.nutritionGoal = new UserNutrition();
     }
 
-    protected UserProfile(Parcel in) {
-        displayName = in.readString();
-    }
 
-    public static final Creator<UserProfile> CREATOR = new Creator<UserProfile>() {
-        @Override
-        public UserProfile createFromParcel(Parcel in) {
-            return new UserProfile(in);
-        }
-
-        @Override
-        public UserProfile[] newArray(int size) {
-            return new UserProfile[size];
-        }
-    };
 
     public String getDisplayName() {
         return displayName;
@@ -59,13 +45,40 @@ public class UserProfile implements Parcelable {
         return nutritionCount.getNutrientCountByName(nutrient);
     }
 
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(displayName);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.displayName);
+        dest.writeParcelable(this.nutritionGoal, flags);
+        dest.writeParcelable(this.nutritionCount, flags);
     }
+
+    public void readFromParcel(Parcel source) {
+        this.displayName = source.readString();
+        this.nutritionGoal = source.readParcelable(UserNutrition.class.getClassLoader());
+        this.nutritionCount = source.readParcelable(UserNutrition.class.getClassLoader());
+    }
+
+    protected UserProfile(Parcel in) {
+        this.displayName = in.readString();
+        this.nutritionGoal = in.readParcelable(UserNutrition.class.getClassLoader());
+        this.nutritionCount = in.readParcelable(UserNutrition.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<UserProfile> CREATOR = new Parcelable.Creator<UserProfile>() {
+        @Override
+        public UserProfile createFromParcel(Parcel source) {
+            return new UserProfile(source);
+        }
+
+        @Override
+        public UserProfile[] newArray(int size) {
+            return new UserProfile[size];
+        }
+    };
 }

@@ -20,13 +20,13 @@ public class NutritionXRestaurantListParsing {
     private ArrayList<Restaurant> restaurantList;
     private Context context;
 
-    NutritionXRestaurantListParsing(Context c) {
+    public NutritionXRestaurantListParsing(Context c) {
         restaurantList = new ArrayList<>();
         context = c;
         parseList();
     }
 
-    ArrayList<Restaurant> getRestaurantList() {
+    public ArrayList<Restaurant> getRestaurantList() {
         return restaurantList;
     }
 

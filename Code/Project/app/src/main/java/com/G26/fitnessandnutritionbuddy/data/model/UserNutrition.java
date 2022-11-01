@@ -1,6 +1,9 @@
 package com.G26.fitnessandnutritionbuddy.data.model;
 
-public class UserNutrition {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class UserNutrition implements Parcelable {
     private Integer calories;
     private Integer carbohydrates;
     private Integer fats;
@@ -55,4 +58,43 @@ public class UserNutrition {
         System.out.println("Error in backend logic");
         return null;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.calories);
+        dest.writeValue(this.carbohydrates);
+        dest.writeValue(this.fats);
+        dest.writeValue(this.protein);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.calories = (Integer) source.readValue(Integer.class.getClassLoader());
+        this.carbohydrates = (Integer) source.readValue(Integer.class.getClassLoader());
+        this.fats = (Integer) source.readValue(Integer.class.getClassLoader());
+        this.protein = (Integer) source.readValue(Integer.class.getClassLoader());
+    }
+
+    protected UserNutrition(Parcel in) {
+        this.calories = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.carbohydrates = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.fats = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.protein = (Integer) in.readValue(Integer.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<UserNutrition> CREATOR = new Parcelable.Creator<UserNutrition>() {
+        @Override
+        public UserNutrition createFromParcel(Parcel source) {
+            return new UserNutrition(source);
+        }
+
+        @Override
+        public UserNutrition[] newArray(int size) {
+            return new UserNutrition[size];
+        }
+    };
 }
