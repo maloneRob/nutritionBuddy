@@ -12,14 +12,24 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_userProfileFragment"
-            app:destination="@id/userProfileFragment" />
+            android:id="@+id/action_FirstFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
         <action
             android:id="@+id/action_FirstFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MainMenuFragment"
+        android:name="com.G26.fitnessandnutritionbuddy.ui.mainmenu.MainMenuFragment"
+        android:label="Main Menu Fragment"
+        tools:layout="@layout/fragment_mainmenu">
+
+        <action
+            android:id="@+id/action_MainMenuFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_MainMenuFragment_to_UserProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -28,8 +38,8 @@
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SecondFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_JsonListFragment"
             app:destination="@id/JSONListFragment" />
@@ -42,6 +52,9 @@
         <action
             android:id="@+id/action_userProfileFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
         <argument
             android:name="userProfile"
             app:argType="com.G26.fitnessandnutritionbuddy.data.model.UserProfile" />

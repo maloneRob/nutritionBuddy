@@ -69,12 +69,12 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         foodsNearby = view.findViewById(R.id.ListViewFoodsNearby);
         arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
         foodsNearby.setAdapter(arrayAdapter);
-        // to home screen
+        // to main menu
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                        .navigate(R.id.action_SecondFragment_to_MainMenuFragment);
 
                 Intent intent = new Intent(getContext(), JSONActivity.class);
                 startActivity(intent);
@@ -125,7 +125,6 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         LatLng location = new LatLng(41.8725, -87.6493);
         String locationName = "Your Location";
 
-//        addRestaurants(mMap);
         new Thread(new Runnable() {
             @Override
             public void run() {

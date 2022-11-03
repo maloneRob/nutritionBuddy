@@ -53,7 +53,7 @@ public class FirstFragment extends Fragment {
                 activity.saveData(bundle);
 
                 NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_userProfileFragment);
+                        .navigate(R.id.action_FirstFragment_to_MainMenuFragment);
 
             }
         });
