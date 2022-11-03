@@ -69,8 +69,6 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         foodsNearby = view.findViewById(R.id.ListViewFoodsNearby);
         arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
         foodsNearby.setAdapter(arrayAdapter);
-
-        queryMenu();
         // to home screen
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +109,12 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
 //        for(int i = 0; i < restaurantList.size(); i++) {
 //            Pair<String, LatLng> r = restaurantList.get(i);
-            Log.i("[method check]", "adding restaurant marker");
-            Log.i("[restName]", restaurant.first);
-            Log.i("[latlng]", restaurant.second.toString());
+//            Log.i("[method check]", "adding restaurant marker");
+//            Log.i("[restName]", restaurant.first);
+//            Log.i("[latlng]", restaurant.second.toString());
             mMap.addMarker(new MarkerOptions().position(restaurant.second).icon(BitmapDescriptorFactory.defaultMarker(276)).title(restaurant.first));
 //        }
-        Log.i("[method check]", "ALRIGHT I restaurant marker");
+//        Log.i("[method check]", "ALRIGHT I restaurant marker");
     }
 
     @Override
@@ -128,14 +126,13 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         String locationName = "Your Location";
 
 //        addRestaurants(mMap);
-        queryRestaurants(mMap);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                queryRestaurants(mMap);
+            }
+        }).start();
 
-//        NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getContext());
-//        ArrayList<Restaurant> restList = list.getRestaurantList();
-//        for (Restaurant rest : restList) {
-//            LatLng posit = new LatLng(rest.getLat(), rest.getLng());
-//            addRestaurants(mMap, Pair.create(rest.getRestaurantName(), posit));
-//        }
 
         mMap.addMarker(new MarkerOptions().position(location).title(locationName));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
@@ -145,16 +142,27 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("[method check]", "about to parse list");
-                NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getContext());
-                Log.i("[method check]", "I parsed the ***");
-                ArrayList<Restaurant> restList = list.getRestaurantList();
-                mUiHandler.post(new Runnable() {
+//                Log.i("[method check]", "about to parse list");
+                QueryRestaurants restQuery = new QueryRestaurants(getContext());
+                restQuery.queryLocation(41.8725, -87.6493, new QueryRestaurants.VolleyResponseListener() {
                     @Override
-                    public void run() {
-                        for (Restaurant rest : restList) {
+                    public void onError(String message) {
+                        Log.i("[Error response]","error getting restaurants");
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getContext(), response);
+                        ArrayList<Restaurant> restList = list.getRestaurantList();
+                        for (Restaurant rest : restList){
                             LatLng posit = new LatLng(rest.getLat(), rest.getLng());
-                            addRestaurants(mMap, Pair.create(rest.getRestaurantName(), posit));
+                            mUiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addRestaurants(mMap, Pair.create(rest.getRestaurantName(), posit));
+                                }
+                            });
+                            queryMenu(rest.getRestaurantName());
                         }
                     }
                 });
@@ -163,63 +171,37 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         }).start();
 
     }
-    private void queryMenu() {
+    private void queryMenu(String restaurantName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.i("[thread check]", "about to parse");
-                NutritionXFoodListParsing list = new NutritionXFoodListParsing(getContext());
-                Log.i("[thread check]", "got done parsing to parse");
-                ArrayList<Food> foodlist = list.getFoodList();
-                lUiHandler.post(new Runnable() {
+//                Log.i("[thread check]", "about to parse");
+                QueryMenu menuQuery = new QueryMenu(getContext());
+                //make a Querymenu object and call the queryMenuItems method with the restaurant name
+                menuQuery.queryMenuItems(restaurantName, new QueryRestaurants.VolleyResponseListener() {
                     @Override
-                    public void run() {
-                        Log.i("[thread check]", "about to loop through foods foodlen="+foodlist.size());
-                        for (Food food: foodlist){
+                    public void onError(String message) {
+                        Log.i("[queryMenuError]", "error getting json back from menu for" + restaurantName);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        NutritionXFoodListParsing list = new NutritionXFoodListParsing(getContext(), response);
+                        ArrayList<Food> foodList = list.getFoodList();
+                        for (Food food: foodList){
                             String item = food.getName()+" Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
                                     + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
-                            Log.i("[adding item]", item);
-                            arrayAdapter.add(item);
+                            lUiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    arrayAdapter.add(item);
+                                }
+                            });
                         }
-                        Log.i("[thread check]", "done looping through foods");
                     }
                 });
             }
         }).start();
     }
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-////                QueryRestaurants query = new QueryRestaurants(getActivity());
-//                query.queryLocation(41.8725, -87.6493, new QueryRestaurants.VolleyResponseListener() {
-//                    @Override
-//                    public void onError(String message) {
-//                        Log.i("[RESPONSE]", message);
-//                    }
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-////                        Log.i("[Response object]", response.toString());
-//                        NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getActivity());
-//
-//                        ArrayList<Restaurant> restList = list.getRestaurantList();
-//
-//                        NutritionXFoodListParsing foodList = new NutritionXFoodListParsing(getActivity());
-//
-//                        mUiHandler.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                for ( Restaurant rest: restList){
-//                                    LatLng posit = new LatLng(rest.getLat(),rest.getLng());
-//                                    addRestaurants(mMap,Pair.create(rest.getRestaurantName(),posit));
-//                                }
-//
-////                                arrayAdapter.add(response.toString());
-//                            }
-//                        });
-//                    }
-//                });
-//            }
-//        }).start();
 
 }

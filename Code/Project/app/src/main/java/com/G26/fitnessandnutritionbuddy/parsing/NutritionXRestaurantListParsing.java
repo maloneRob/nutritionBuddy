@@ -19,9 +19,11 @@ public class NutritionXRestaurantListParsing {
 
     private ArrayList<Restaurant> restaurantList;
     private Context context;
+    private JSONObject jsonObject;
 
-    public NutritionXRestaurantListParsing(Context c) {
+    public NutritionXRestaurantListParsing(Context c, JSONObject jobject) {
         restaurantList = new ArrayList<>();
+        this.jsonObject = jobject;
         context = c;
         parseList();
     }
@@ -53,13 +55,13 @@ public class NutritionXRestaurantListParsing {
     }
 
     private void parseList() {
-        String filename = "RestaurantsList.json";
-        String jsonString = getJsonString(filename);
+//        String filename = "RestaurantsList.json";
+//        String jsonString = getJsonString(filename);
         try {
-            JSONObject jsonObject = new JSONObject(jsonString);
+//            JSONObject jsonObject = new JSONObject(jsonString);
 
             JSONArray restaurantArray = jsonObject.getJSONArray("locations");
-            for (int restIndex = 0; restIndex < 5; restIndex++) { // limit to first 5 restaurants for now
+            for (int restIndex = 0; restIndex < 10; restIndex++) { // limit to first 5 restaurants for now
                 JSONObject restObject = restaurantArray.getJSONObject(restIndex);
 
                 Restaurant restaurant = new Restaurant();

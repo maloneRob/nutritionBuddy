@@ -31,7 +31,7 @@ public class QueryRestaurants {
     public void queryLocation(double lat, double lng, VolleyResponseListener volleyResponseListener){
         //build query string for api
 //                String url = "https://trackapi.nutritionix.com/v2/locations?ll=41.5250,-88.0817&distance=5mi";
-        String url = "https://trackapi.nutritionix.com/v2/locations?ll=" + lat + "," + lng +"&distance=5mi";
+        String url = "https://trackapi.nutritionix.com/v2/locations?ll=" + lat + "," + lng +"&distance=1mi";
         //make query
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

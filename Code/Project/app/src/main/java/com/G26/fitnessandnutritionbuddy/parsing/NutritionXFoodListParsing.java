@@ -19,10 +19,12 @@ public class NutritionXFoodListParsing {
 
     private ArrayList<Food> foodList;
     private Context context;
+    private JSONObject jsonObject;
 
-    public NutritionXFoodListParsing(Context c) {
+    public NutritionXFoodListParsing(Context c,JSONObject jobject) {
         foodList = new ArrayList<>();
         context = c;
+        this.jsonObject = jobject;
         parseList();
     }
 
@@ -78,15 +80,15 @@ public class NutritionXFoodListParsing {
 
     private void parseList() {
         Log.i("[parse check]", "parsing list");
-        String filename = "WendysFoodList.json";
-        String jsonString = getJsonString(filename);
+//        String filename = "WendysFoodList.json";
+//        String jsonString = getJsonString(filename);
         try {
             Log.i("[parse check]", "in try0");
-            JSONObject jsonObject = new JSONObject(jsonString);
+//            JSONObject jsonObject = new JSONObject(jsonString);
 
             JSONArray foodArray = jsonObject.getJSONArray("common");
             Log.i("[parse check]", "in try1");
-            for (int foodIndex = 0; foodIndex < 5; foodIndex++) { // limit to first 5 foods for now
+            for (int foodIndex = 0; foodIndex < 10; foodIndex++) { // limit to first 5 foods for now
                 Log.i("[parse check]", "in try2");
                 JSONObject foodObject = foodArray.getJSONObject(foodIndex);
 
