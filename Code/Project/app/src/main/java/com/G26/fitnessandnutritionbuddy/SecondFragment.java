@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.G26.fitnessandnutritionbuddy.data.model.UserProfile;
 import com.G26.fitnessandnutritionbuddy.databinding.FragmentSecondBinding;
 import com.G26.fitnessandnutritionbuddy.parsing.NutritionXFoodListParsing;
 import com.G26.fitnessandnutritionbuddy.parsing.NutritionXRestaurantListParsing;
@@ -37,7 +38,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
     private FragmentSecondBinding binding;
     private GoogleMap mMap;
     Bundle restaurants;
-    Bundle user;
+    Bundle data;
+    UserProfile user;
     ListView foodsNearby;
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> items;
@@ -55,7 +57,13 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         MainActivity activity = (MainActivity) getActivity();
-        user = activity.getSaveData();
+        Bundle saveData = activity.getSaveData();
+        user = saveData.getParcelable("profile");
+        Log.i("[printing user information name]", user.getDisplayName());
+        Log.i("[printing user information calories]", user.getNutrientGoal("calories").toString());
+        Log.i("[printing user information carbs]", user.getNutrientGoal("carbohydrates").toString());
+        Log.i("[printing user information protein]", user.getNutrientGoal("protein").toString());
+        Log.i("[printing user information fats]", user.getNutrientGoal("fats").toString());
         return view;
 
     }
@@ -100,21 +108,10 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         super.onDestroyView();
         binding = null;
     }
-
+    //function for adding a marker to the google map
     private void addRestaurants(GoogleMap mMap, Pair<String,LatLng> restaurant) {
-//        ArrayList<Pair<String, LatLng>> restaurantList = new ArrayList<>();
-//        restaurantList.add(Pair.create("Chick Fil A", new LatLng(41.87227543499208, -87.64773968077166)));
-//        restaurantList.add(Pair.create("Portillos", new LatLng(41.870422296784994, -87.64005777297913)));
-//        restaurantList.add(Pair.create("McDonalds", new LatLng(41.87898523054248, -87.63911369839084)));
+        mMap.addMarker(new MarkerOptions().position(restaurant.second).icon(BitmapDescriptorFactory.defaultMarker(276)).title(restaurant.first));
 
-//        for(int i = 0; i < restaurantList.size(); i++) {
-//            Pair<String, LatLng> r = restaurantList.get(i);
-//            Log.i("[method check]", "adding restaurant marker");
-//            Log.i("[restName]", restaurant.first);
-//            Log.i("[latlng]", restaurant.second.toString());
-            mMap.addMarker(new MarkerOptions().position(restaurant.second).icon(BitmapDescriptorFactory.defaultMarker(276)).title(restaurant.first));
-//        }
-//        Log.i("[method check]", "ALRIGHT I restaurant marker");
     }
 
     @Override
@@ -138,11 +135,14 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
 
     }
+    // function for making restaurant queries
     private void queryRestaurants(GoogleMap mMap) {
+        // make a new thread to not bog down UI
         new Thread(new Runnable() {
             @Override
             public void run() {
 //                Log.i("[method check]", "about to parse list");
+                //make query object and pass it latlng to make api request for restaurants nearby
                 QueryRestaurants restQuery = new QueryRestaurants(getContext());
                 restQuery.queryLocation(41.8725, -87.6493, new QueryRestaurants.VolleyResponseListener() {
                     @Override
@@ -152,30 +152,45 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        //we get a response so we make a NutritionXRestaurantList Parsing object to parse the json object response
                         NutritionXRestaurantListParsing list = new NutritionXRestaurantListParsing(getContext(), response);
+                        //get the list of restaurants nearby our location from the parser class
                         ArrayList<Restaurant> restList = list.getRestaurantList();
+                        //for every location we get we're going to iterate through them
                         for (Restaurant rest : restList){
+                            //make LatLng pair of restaurant location to send it to the gmap marker
                             LatLng posit = new LatLng(rest.getLat(), rest.getLng());
                             mUiHandler.post(new Runnable() {
+                                //we use the mUIHandler to update the UI thread since our api calls are asynchronous we update as we get them
                                 @Override
                                 public void run() {
+                                    //addRestaurants adds the marker to the map
                                     addRestaurants(mMap, Pair.create(rest.getRestaurantName(), posit));
                                 }
                             });
+                            // we then start querying for the menu for that restaurant by passing the name to the queryMenu function
                             queryMenu(rest.getRestaurantName());
                         }
                     }
                 });
 
             }
-        }).start();
+        }).start(); //start the thread
 
     }
+    // function for making menu queries
     private void queryMenu(String restaurantName) {
+        //grab the nutrition goals for the user to parse the list by
+        int calorieGoal = user.getNutrientGoal("calories");
+        int carbGoal = user.getNutrientGoal("carbohydrates");
+        int fatsGoal = user.getNutrientGoal("fats");
+        int proteinGoal = user.getNutrientGoal("protein");
+        // make a new thread as to not bog down UI
         new Thread(new Runnable() {
             @Override
             public void run() {
 //                Log.i("[thread check]", "about to parse");
+                //make a QueryMenu object
                 QueryMenu menuQuery = new QueryMenu(getContext());
                 //make a Querymenu object and call the queryMenuItems method with the restaurant name
                 menuQuery.queryMenuItems(restaurantName, new QueryRestaurants.VolleyResponseListener() {
@@ -186,17 +201,27 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        //we got a response so we pass that response to an instance of the NutritionXFoodListParsing class
                         NutritionXFoodListParsing list = new NutritionXFoodListParsing(getContext(), response);
+                        // we get the list build by the parser using the getFoodList() function
                         ArrayList<Food> foodList = list.getFoodList();
+                        //for every food in the food list
                         for (Food food: foodList){
-                            String item = food.getName()+" Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
-                                    + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
-                            lUiHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    arrayAdapter.add(item);
-                                }
-                            });
+                            //if the food macronutrient info is within bounds of the user's nutrients goal
+                            if((food.getCalories() <= calorieGoal) && (food.getProtein() <= proteinGoal) && (food.getFats() <= fatsGoal) && (food.getCarbohydrates() <= carbGoal)){
+                                // build a string of the information for the food to add to the ListView
+                                String item = food.getName()+" Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
+                                        + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
+                                //since these are asynchronous calls we update the UI when we get them by using the lUIHandler
+                                lUiHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // add the string we just created to the listview via the array adapter
+                                        arrayAdapter.add(item);
+                                    }
+                                });
+                            }
+
                         }
                     }
                 });

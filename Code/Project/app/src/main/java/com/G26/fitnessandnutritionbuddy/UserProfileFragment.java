@@ -113,10 +113,14 @@ public class UserProfileFragment extends Fragment {
         //fill in text fields
         userName.setText(user.getDisplayName());
         userName.setEnabled(false);
-        calories.setText(user.getNutrientGoal("calories").toString());
-        carbs.setText(user.getNutrientGoal("carbohydrates").toString());
-        fats.setText(user.getNutrientGoal("fats").toString());
-        proteins.setText(user.getNutrientGoal("protein").toString());
+//        calories.setText(user.getNutrientGoal("calories").toString());
+//        carbs.setText(user.getNutrientGoal("carbohydrates").toString());
+//        fats.setText(user.getNutrientGoal("fats").toString());
+//        proteins.setText(user.getNutrientGoal("protein").toString());
+        calories.setText("700");
+        carbs.setText("30");
+        fats.setText("18");
+        proteins.setText("15");
 
         //find meal button
         button.setOnClickListener(new View.OnClickListener() {
