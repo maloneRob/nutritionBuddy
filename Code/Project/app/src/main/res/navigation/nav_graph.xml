@@ -65,8 +65,8 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_registrationFragment_to_userProfileFragment"
-            app:destination="@id/userProfileFragment" />
+            android:id="@+id/action_registrationFragment_to_mainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
         <action
             android:id="@+id/action_registrationFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />

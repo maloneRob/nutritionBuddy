@@ -88,7 +88,7 @@ public class RegistrationFragment extends Fragment {
                 MainActivity activity = (MainActivity) getActivity();
                 activity.saveData(bundle);
                 NavHostFragment.findNavController(RegistrationFragment.this)
-                        .navigate(R.id.action_registrationFragment_to_userProfileFragment);
+                        .navigate(R.id.action_registrationFragment_to_mainMenuFragment);
             }
         });
 

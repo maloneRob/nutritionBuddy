@@ -84,19 +84,19 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_MainMenuFragment);
 
-                Intent intent = new Intent(getContext(), JSONActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), JSONActivity.class);
+//                startActivity(intent);
             }
         });
 
-        // to map
-        binding.buttonThird.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_JsonListFragment);
-            }
-        });
+        // to food list
+//        binding.buttonThird.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(SecondFragment.this)
+//                        .navigate(R.id.action_SecondFragment_to_JsonListFragment);
+//            }
+//        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.map3);
