@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.G26.fitnessandnutritionbuddy.data.model.UserLocationInfo;
 import com.G26.fitnessandnutritionbuddy.data.model.UserProfile;
 import com.G26.fitnessandnutritionbuddy.databinding.FragmentSecondBinding;
 import com.G26.fitnessandnutritionbuddy.parsing.NutritionXFoodListParsing;
@@ -119,7 +120,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker at UIC, move & zoom the camera
-        LatLng location = new LatLng(41.8725, -87.6493);
+        LatLng location = new LatLng(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude());
+
         String locationName = "Your Location";
 
         new Thread(new Runnable() {
@@ -143,7 +145,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 //                Log.i("[method check]", "about to parse list");
                 //make query object and pass it latlng to make api request for restaurants nearby
                 QueryRestaurants restQuery = new QueryRestaurants(getContext());
-                restQuery.queryLocation(41.8725, -87.6493, new QueryRestaurants.VolleyResponseListener() {
+                restQuery.queryLocation(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude(), new QueryRestaurants.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
                         Log.i("[Error response]","error getting restaurants");

@@ -105,8 +105,8 @@ public class UserLocation extends AppCompatActivity {
         Log.i("TestingMaps",String.valueOf(location.getLongitude()));
         Log.i("TestingMaps",String.valueOf(location.getLatitude()));
         //This is is setting the user information
-        UserLocationInfo.setLatitude(String.valueOf(location.getLatitude()));
-        UserLocationInfo.setLongitude(String.valueOf(location.getLongitude()));
+        UserLocationInfo.setLatitude(location.getLatitude());
+        UserLocationInfo.setLongitude(location.getLongitude());
 
 
     }
