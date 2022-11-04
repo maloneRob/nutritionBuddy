@@ -47,13 +47,7 @@ public class MainActivity extends AppCompatActivity {
 //        //get username from textview at login screen
 //        userNameText = (EditText) findViewById(R.id.editTextTextPersonName);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override
