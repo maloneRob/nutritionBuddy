@@ -1,7 +1,12 @@
 package com.G26.fitnessandnutritionbuddy;
 
+import static java.lang.Math.abs;
+
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import java.text.DecimalFormat;
 
 public class Food implements Parcelable {
 
@@ -11,6 +16,9 @@ public class Food implements Parcelable {
     private int fats;
     private int carbohydrates;
     private int protein;
+    private double matchPercentage;
+
+    private DecimalFormat df = new DecimalFormat("0.00");
 
     public Food() {}
 
@@ -65,6 +73,24 @@ public class Food implements Parcelable {
 
     public void setProtein(int protein) {
         this.protein = protein;
+    }
+
+    public double getMatchPercentage() { return this.matchPercentage; }
+
+    public double setAndCalculateMatchPercentage(int calorieGoal, int fatsGoal, int carbsGoal, int proteinGoal) {
+        double percentage = 0.0;
+
+        // sorry.
+        percentage += 1 - abs(((double)calorieGoal - (double)calories) / (double)calorieGoal);
+        percentage += 1 - abs(((double)fatsGoal - (double)fats) / (double)fatsGoal);
+        percentage += 1 - abs(((double)carbsGoal - (double)carbohydrates) / (double)carbsGoal);
+        percentage += 1 - abs(((double)proteinGoal - (double)protein) / (double)proteinGoal);
+        percentage /= 4;
+        percentage *= 100;
+        this.matchPercentage = Double.parseDouble(df.format(percentage));
+        Log.i("[MatchPercentage]", foodName + " percentage: " + matchPercentage);
+
+        return this.matchPercentage;
     }
 
     @Override

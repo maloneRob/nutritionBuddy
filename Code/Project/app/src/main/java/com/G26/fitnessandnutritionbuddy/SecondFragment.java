@@ -207,9 +207,10 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                         //for every food in the food list
                         for (Food food: foodList){
                             //if the food macronutrient info is within bounds of the user's nutrients goal
-                            if((food.getCalories() <= calorieGoal) && (food.getProtein() <= proteinGoal) && (food.getFats() <= fatsGoal) && (food.getCarbohydrates() <= carbGoal)){
+
+                            if(food.setAndCalculateMatchPercentage(calorieGoal, fatsGoal, carbGoal, proteinGoal) >= 30.0){
                                 // build a string of the information for the food to add to the ListView
-                                String item = food.getName()+" Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
+                                String item = food.getName()+"\n"+food.getMatchPercentage()+"% Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
                                         + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
                                 //since these are asynchronous calls we update the UI when we get them by using the lUIHandler
                                 lUiHandler.post(new Runnable() {
