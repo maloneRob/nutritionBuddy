@@ -36,14 +36,16 @@ public class MainMenuFragment extends Fragment {
         binding.buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // NavHostFragment.findNavController(MainMenuFragment.this)
-                //         .navigate(R.id.action_FirstFragment_to_userProfileFragment);
+                NavHostFragment.findNavController(MainMenuFragment.this)
+                         .navigate(R.id.action_MainMenuFragment_to_profileFragment_YS);
 
             }
         });
         binding.buttonFindfood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //
                 NavHostFragment.findNavController(MainMenuFragment.this)
                         .navigate(R.id.action_MainMenuFragment_to_UserProfileFragment);
             }

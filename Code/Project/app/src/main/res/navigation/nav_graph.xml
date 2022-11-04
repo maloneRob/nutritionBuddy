@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_MainMenuFragment_to_UserProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_MainMenuFragment_to_profileFragment_YS"
+            app:destination="@id/profileFragment_YS" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -80,5 +83,14 @@
         <action
             android:id="@+id/action_fragmentJsonList_to_second_fragment"
             app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment_YS"
+        android:name="com.G26.fitnessandnutritionbuddy.ProfileFragment_YS"
+        android:label="fragment_profile__y_s"
+        tools:layout="@layout/fragment_profile__y_s" >
+        <action
+            android:id="@+id/action_profileFragment_YS_to_MainMenuFragment"
+            app:destination="@id/MainMenuFragment" />
     </fragment>
 </navigation>
