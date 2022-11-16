@@ -121,6 +121,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
         // Add a marker at UIC, move & zoom the camera
         LatLng location = new LatLng(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude());
+//        LatLng location = new LatLng(41.5250,-88.0817);
 
         String locationName = "Your Location";
 
@@ -145,6 +146,9 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
 //                Log.i("[method check]", "about to parse list");
                 //make query object and pass it latlng to make api request for restaurants nearby
                 QueryRestaurants restQuery = new QueryRestaurants(getContext());
+                String location = UserLocationInfo.getLatitude() + ", "+ UserLocationInfo.getLongitude();
+                Log.i("[userlocation]", location);
+//                restQuery.queryLocation(41.5250,-88.0817, new QueryRestaurants.VolleyResponseListener() {
                 restQuery.queryLocation(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude(), new QueryRestaurants.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
