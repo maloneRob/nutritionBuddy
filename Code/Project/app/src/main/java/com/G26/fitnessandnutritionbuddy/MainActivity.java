@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
         boolean updateOn= false;
         // the use of FusedLocation object to get the location
         //setting the location properties
-
+//        locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
+//                .setWaitForAccurateLocation(false)
+//                .setMinUpdateIntervalMillis(500)
+//                .setMaxUpdateDelayMillis(1000)
+//                .build();
         locationRequest = LocationRequest.create()
                 .setInterval(1000 * DEFAULT_UPDATE_INTERVAL)
                 .setFastestInterval(1000 * FAST_UPDATE_INTERVAL)
@@ -123,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             // permissions is not granted yet
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 // note that the number 99 could be any number
+                Log.i("[permissions requested]","getting  permissions");
                 requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 99);
             }
         }

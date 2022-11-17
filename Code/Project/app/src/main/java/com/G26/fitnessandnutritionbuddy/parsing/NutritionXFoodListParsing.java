@@ -67,7 +67,7 @@ public class NutritionXFoodListParsing {
 
             // set nutrient values if found
             if (attr_id == 203)
-                food.setCalories(value);
+                food.setProtein(value);
             else if (attr_id == 204)
                 food.setFats(value);
             else if (attr_id == 205)

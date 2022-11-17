@@ -120,8 +120,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker at UIC, move & zoom the camera
-        LatLng location = new LatLng(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude());
-//        LatLng location = new LatLng(41.5250,-88.0817);
+//        LatLng location = new LatLng(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude());
+        LatLng location = new LatLng(41.8658,-87.6471);
 
         String locationName = "Your Location";
 
@@ -148,8 +148,8 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                 QueryRestaurants restQuery = new QueryRestaurants(getContext());
                 String location = UserLocationInfo.getLatitude() + ", "+ UserLocationInfo.getLongitude();
                 Log.i("[userlocation]", location);
-//                restQuery.queryLocation(41.5250,-88.0817, new QueryRestaurants.VolleyResponseListener() {
-                restQuery.queryLocation(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude(), new QueryRestaurants.VolleyResponseListener() {
+                restQuery.queryLocation(41.8658,-87.6471, new QueryRestaurants.VolleyResponseListener() {
+//                restQuery.queryLocation(UserLocationInfo.getLatitude(),UserLocationInfo.getLongitude(), new QueryRestaurants.VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
                         Log.i("[Error response]","error getting restaurants");
