@@ -20,10 +20,12 @@ public class NutritionXFoodListParsing {
     private ArrayList<Food> foodList;
     private Context context;
     private JSONObject jsonObject;
+    private String restName;
 
-    public NutritionXFoodListParsing(Context c,JSONObject jobject) {
+    public NutritionXFoodListParsing(Context c,JSONObject jobject, String restName) {
         foodList = new ArrayList<>();
         context = c;
+        this.restName = restName;
         this.jsonObject = jobject;
         parseList();
     }
@@ -82,6 +84,7 @@ public class NutritionXFoodListParsing {
         Log.i("[parse check]", "parsing list");
 //        String filename = "WendysFoodList.json";
 //        String jsonString = getJsonString(filename);
+
         try {
             Log.i("[parse check]", "in try0");
 //            JSONObject jsonObject = new JSONObject(jsonString);
@@ -109,6 +112,7 @@ public class NutritionXFoodListParsing {
             Log.i("[parse check]", "in try3");
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.i("[parse check error out of bounds]", restName);
         }
     }
 }

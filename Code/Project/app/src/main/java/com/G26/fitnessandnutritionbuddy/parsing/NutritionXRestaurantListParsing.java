@@ -61,7 +61,7 @@ public class NutritionXRestaurantListParsing {
 //            JSONObject jsonObject = new JSONObject(jsonString);
 
             JSONArray restaurantArray = jsonObject.getJSONArray("locations");
-            for (int restIndex = 0; restIndex < 10; restIndex++) { // limit to first 5 restaurants for now
+            for (int restIndex = 0; restIndex < 20; restIndex++) { // limit to first 5 restaurants for now
                 JSONObject restObject = restaurantArray.getJSONObject(restIndex);
 
                 Restaurant restaurant = new Restaurant();

@@ -32,7 +32,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
@@ -44,6 +46,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
     ListView foodsNearby;
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> items;
+    Set<String> restaurantSet;
 
 
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
@@ -58,6 +61,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         MainActivity activity = (MainActivity) getActivity();
+        restaurantSet = new HashSet<>();
         Bundle saveData = activity.getSaveData();
         user = saveData.getParcelable("profile");
         Log.i("[printing user information name]", user.getDisplayName());
@@ -174,7 +178,11 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                                 }
                             });
                             // we then start querying for the menu for that restaurant by passing the name to the queryMenu function
-                            queryMenu(rest.getRestaurantName());
+                            if(!restaurantSet.contains(rest.getRestaurantName())){
+                                restaurantSet.add(rest.getRestaurantName());
+                                queryMenu(rest.getRestaurantName());
+                            }
+
                         }
                     }
                 });
@@ -207,14 +215,14 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                     @Override
                     public void onResponse(JSONObject response) {
                         //we got a response so we pass that response to an instance of the NutritionXFoodListParsing class
-                        NutritionXFoodListParsing list = new NutritionXFoodListParsing(getContext(), response);
+                        NutritionXFoodListParsing list = new NutritionXFoodListParsing(getContext(), response, restaurantName);
                         // we get the list build by the parser using the getFoodList() function
                         ArrayList<Food> foodList = list.getFoodList();
                         //for every food in the food list
                         for (Food food: foodList){
                             //if the food macronutrient info is within bounds of the user's nutrients goal
 
-                            if(food.setAndCalculateMatchPercentage(calorieGoal, fatsGoal, carbGoal, proteinGoal) >= 30.0){
+                            if(food.setAndCalculateMatchPercentage(calorieGoal, fatsGoal, carbGoal, proteinGoal) >= 50.0){
                                 // build a string of the information for the food to add to the ListView
                                 String item = restaurantName+"\n"+ food.getName()+"\n"+food.getMatchPercentage()+"% Calories:"+food.getCalories() + " Carbs:" + food.getCarbohydrates()
                                         + " Fats:" + food.getFats() + " Protein:" + food.getProtein();
